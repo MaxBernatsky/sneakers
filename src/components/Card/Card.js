@@ -7,6 +7,7 @@ const Card = ({ title, price, imgUrl, onClickAdd, onClickFavorite }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   const handleAdded = () => {
+    onClickAdd({ title, price, imgUrl });
     setIsAdded(!isAdded);
   };
 

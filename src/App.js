@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 function App() {
   const [items, setItems] = useState([]);
 
+  const [cartItems, setCartItems] = useState([]);
+
   const [cardOpened, setCardOpened] = useState(false);
 
   useEffect(() => {
@@ -18,9 +20,15 @@ function App() {
       });
   }, []);
 
+  const onAddToCart = (data) => {
+    setCartItems((prev) => [...prev, data]);
+  };
+
   return (
     <div className='wrapper clear'>
-      {cardOpened && <Drawer onCloseCart={() => setCardOpened(false)} />}
+      {cardOpened && (
+        <Drawer items={cartItems} onCloseCart={() => setCardOpened(false)} />
+      )}
 
       <Header onOpenCart={() => setCardOpened(true)} />
 
@@ -38,7 +46,7 @@ function App() {
               title={item.title}
               price={item.price}
               imgUrl={item.imgUrl}
-              onClickAdd={() => console.log('add')}
+              onClickAdd={() => onAddToCart(item)}
               onClickFavorite={() => console.log('favorite')}
             />
           ))}
